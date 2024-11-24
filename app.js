@@ -1,13 +1,14 @@
+require("dotenv").config();
 const express = require("express");
 const { MongoClient } = require("mongodb");
 
 const app = express();
-const port = 3000;
 
-// MongoDB connection details
-const uri = "mongodb+srv://parichay23054:12345@coursera.ikbj8.mongodb.net/?retryWrites=true&w=majority&appName=Coursera"; // Replace with your MongoDB URI
-const dbName = "your_database_name";
-const collectionName = "your_collection_name";
+// Use environment variables for sensitive information
+const uri = process.env.MONGO_URI;
+const dbName = process.env.DB_NAME;
+const collectionName = process.env.COLLECTION_NAME;
+const port = process.env.PORT || 3000;
 
 let db, collection;
 
@@ -47,7 +48,6 @@ app.get("/query", async (req, res) => {
         res.status(500).send("Internal server error.");
     }
 });
-
 
 // Start the Express server
 app.listen(port, () => {
